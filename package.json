@@ -1,0 +1,26 @@
+{
+  "name": "smart-gatepass-system",
+  "version": "1.0.0",
+  "description": "A full-stack gate pass management system with ID scanning.",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon backend/server.js",
+    "client": "cd frontend && http-server -p 3000",
+    "seed": "node backend/seed.js"
+  },
+  "keywords": [
+    "gatepass",
+    "express",
+    "mongodb",
+    "nodejs"
+  ],
+  "author": "Gemini",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "http-server": "^14.1.1",
+    "nodemon": "^3.0.1"
+  }
+}

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart GatePass System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="campus-name">Fabtech Technical Campus, College of Engineering and Research, Sangola</h1>
+            <p class="app-title">Smart GatePass System</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Alerts will be injected here -->
+        <div id="alert-container"></div>
+
+        <!-- Login Section -->
+        <section id="login-section" class="login-section">
+            <h2 class="login-title">Login to Gate Pass System</h2>
+            
+            <div class="login-options">
+                <div class="login-option active" data-role="student">
+                    <i class="fas fa-user-graduate"></i> Student
+                </div>
+                <div class="login-option" data-role="authority">
+                    <i class="fas fa-user-tie"></i> Authority
+                </div>
+                <div class="login-option" data-role="security">
+                    <i class="fas fa-shield-alt"></i> Gate Security
+                </div>
+            </div>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter your username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                
+                <button type="submit" class="btn" style="width: 100%;">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+            
+            <div class="signup-link">
+                Don't have an account? <a href="#" id="show-signup">Sign up here</a>
+            </div>
+        </section>
+        
+        <!-- Signup Section -->
+        <section id="signup-section" class="login-section hidden">
+            <h2 class="login-title">Create Account</h2>
+            
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="signup-username">Username</label>
+                    <input type="text" id="signup-username" placeholder="Choose a username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" placeholder="Create a password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-role">Account Type</label>
+                    <select id="signup-role" required>
+                        <option value="">Select Account Type</option>
+                        <option value="student">Student</option>
+                        <option value="authority">Authority</option>
+                        <option value="security">Gate Security</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn" style="width: 100%;">
+                    <i class="fas fa-user-plus"></i> Sign Up
+                </button>
+            </form>
+            
+            <div class="signup-link">
+                Already have an account? <a href="#" id="show-login">Login here</a>
+            </div>
+        </section>
+        
+        <!-- Student Dashboard -->
+        <section id="student-dashboard" class="dashboard hidden">
+            <div class="dashboard-header">
+                <h2 class="dashboard-title">Student Dashboard</h2>
+                <div class="user-info">
+                    <div class="user-avatar">S</div>
+                    <span id="student-username">Student</span>
+                    <button class="btn btn-accent" id="edit-info-btn" style="margin-left: 15px;">
+                        <i class="fas fa-user-edit"></i> Edit My Info
+                    </button>
+                    <button class="btn logout-btn" id="student-logout">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-value total" id="total-passes">0</div>
+                    <div class="stat-label">Total Passes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value approved" id="approved-passes-stat">0</div>
+                    <div class="stat-label">Approved</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value pending" id="pending-passes">0</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value rejected" id="rejected-passes">0</div>
+                    <div class="stat-label">Rejected</div>
+                </div>
+            </div>
+
+            <section id="student-profile-section" class="hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">My Information</h3>
+                    </div>
+                    <form id="student-profile-form">
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="profile-name">Full Name</label>
+                                    <input type="text" id="profile-name" required>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="profile-roll">Roll Number</label>
+                                    <input type="text" id="profile-roll" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="profile-div">Division</label>
+                                    <input type="text" id="profile-div" required>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="profile-contact">Contact Number</label>
+                                    <input type="tel" id="profile-contact" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-address">Address</label>
+                            <textarea id="profile-address" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%;">
+                            <i class="fas fa-save"></i> Save My Details
+                        </button>
+                    </form>
+                </div>
+            </section>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Apply for Gate Pass</h3>
+                </div>
+                
+                <!-- ID Scanner UI -->
+                <div id="id-scanner-container" class="hidden" style="margin-bottom: 20px;">
+                    <div id="reader" width="100%"></div>
+                    <button class="btn btn-danger" id="close-scanner-btn" style="margin-top: 10px;">Close Scanner</button>
+                </div>
+
+                <form id="gatepass-form" class="gatepass-form">
+                    <input type="hidden" id="student-id-hidden">
+
+                    <div style="background-color: var(--gray-100); padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                        <h4 style="margin-bottom: 15px; color: var(--primary);">Auto-fill from Student ID / PRN</h4>
+                        <div class="form-group">
+                            <label for="manual-student-id">Enter ID to fetch another student's details</label>
+                            <div style="display: flex; gap: 10px;">
+                                <input type="text" id="manual-student-id" placeholder="e.g., FAB-CSE-001">
+                                <button type="button" class="btn" id="fetch-student-btn" style="flex-shrink: 0;">Fetch Details</button>
+                                <button type="button" class="btn btn-warning" id="clear-form-btn" style="flex-shrink: 0;">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="student-name">Full Name</label>
+                                <input type="text" id="student-name" required placeholder="Enter your full name">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="student-roll">Roll Number</label>
+                                <input type="text" id="student-roll" required placeholder="Enter your roll number">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="student-department">Department</label>
+                                <input type="text" id="student-department" required placeholder="Enter your department">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="student-division">Division</label>
+                                <input type="text" id="student-division" required placeholder="Enter your division">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="student-contact">Contact Number</label>
+                                <input type="tel" id="student-contact" required placeholder="Enter your contact number">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="student-room">Room Number</label>
+                                <input type="text" id="student-room" required placeholder="Enter your room number">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="out-time">Out Time</label>
+                                <input type="text" id="out-time" required placeholder="Select Out Time">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="in-time">Expected In Time (Optional)</label>
+                                <input type="text" id="in-time" placeholder="Select In Time">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="gatepass-reason">Reason for Gate Pass</label>
+                        <textarea id="gatepass-reason" placeholder="Please provide a reason for your gate pass request" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn" style="width: 100%;">
+                        <i class="fas fa-paper-plane"></i> Submit Gate Pass Request
+                    </button>
+                </form>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">My Gate Pass History</h3>
+                </div>
+                
+                <table id="student-history">
+                    <thead>
+                        <tr>
+                            <th>Pass No</th>
+                            <th>Date</th>
+                            <th>Out Time</th>
+                            <th>In Time</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Gate pass history will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- Authority Dashboard -->
+        <section id="authority-dashboard" class="dashboard hidden">
+            <div class="dashboard-header">
+                <h2 class="dashboard-title">Authority Dashboard</h2>
+                <div class="user-info">
+                    <div class="user-avatar">A</div>
+                    <span id="authority-username">Authority</span>
+                    <button class="btn logout-btn" id="authority-logout">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Pending Gate Pass Requests</h3>
+                </div>
+                
+                <table id="pending-requests">
+                    <thead>
+                        <tr>
+                            <th>Pass No</th>
+                            <th>Student Name</th>
+                            <th>Department</th>
+                            <th>Out Time</th>
+                            <th>Reason</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Pending requests will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Approved/Rejected Gate Passes</h3>
+                </div>
+                
+                <table id="processed-requests">
+                    <thead>
+                        <tr>
+                            <th>Pass No</th>
+                            <th>Student Name</th>
+                            <th>Department</th>
+                            <th>Status</th>
+                            <th>Action Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Processed requests will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- Security Dashboard -->
+        <section id="security-dashboard" class="dashboard hidden">
+            <div class="dashboard-header">
+                <h2 class="dashboard-title">Gate Security Dashboard</h2>
+                <div class="user-info">
+                    <div class="user-avatar">G</div>
+                    <span id="security-username">Security</span>
+                    <button class="btn logout-btn" id="security-logout">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Scan Pass for Entry/Exit</h3>
+                </div>
+                <div style="text-align: center; padding: 20px;">
+                     <button class="btn btn-accent" id="security-scan-btn" style="font-size: 1.2rem; padding: 20px 40px;">
+                        <i class="fas fa-qrcode"></i> Scan Gate Pass
+                    </button>
+                    <div id="security-scanner-container" class="hidden" style="margin-top: 20px;">
+                        <div id="security-reader" width="100%"></div>
+                        <button class="btn btn-danger" id="security-close-scanner-btn" style="margin-top: 10px;">Close Scanner</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Approved Gate Passes for Today</h3>
+                </div>
+                
+                <table id="approved-passes-table">
+                    <thead>
+                        <tr>
+                            <th>Pass No</th>
+                            <th>Student Name</th>
+                            <th>Department</th>
+                            <th>Out Time</th>
+                            <th>Expected In Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Approved passes will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Student Entry/Exit Log</h3>
+                </div>
+                
+                <table id="entry-exit-log">
+                    <thead>
+                        <tr>
+                            <th>Pass No</th>
+                            <th>Student Name</th>
+                            <th>Actual Out</th>
+                            <th>Actual In</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Entry/exit log will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- QR Code Scanner Library -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <!-- Flatpickr Datepicker Library -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- Main Application Script -->
+    <script src="script.js"></script>
+</body>
+</html>
